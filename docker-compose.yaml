@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8000
+      - 8888:8888
     restart: unless-stopped
     environment:
       DATABASE_URL: "postgresql://postgres:euroasiann1234@72.61.236.117:5432/postgres?sslmode=require"
