@@ -3,32 +3,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+
     ports:
-      - 8888:8888
+      - "8888:8888"
+
     restart: unless-stopped
+
     environment:
       DATABASE_URL: "postgresql://postgres:euroasiann1234@72.61.236.117:5432/postgres?sslmode=require"
+
     command: sh ./entrypoint.sh
+
     volumes:
       - ./horilla:/app/horilla
       - ./media:/app/media
-    
-    environment:
-      POSTGRES_DB: horilla
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
-      PGDATA: /var/lib/postgresql/data/pgdata
-    ports:
-      - 5432:5432
-    restart: unless-stopped
-    volumes:
-      - horilla-data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-volumes:
-  horilla-data:
